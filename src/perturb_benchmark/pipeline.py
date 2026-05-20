@@ -98,6 +98,17 @@ def _write_frame(frame: pd.DataFrame, path: Path) -> None:
     frame.to_csv(path, index=False, lineterminator="\n", float_format="%.10g")
 
 
+def _write_gzip_frame(frame: pd.DataFrame, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    frame.to_csv(
+        path,
+        index=False,
+        compression={"method": "gzip", "mtime": 0},
+        lineterminator="\n",
+        float_format="%.10g",
+    )
+
+
 def _prediction_frame(
     conditions: pd.DataFrame,
     targets: pd.DataFrame,
@@ -338,6 +349,7 @@ def run_cpu_pipeline(
         "metadata": root / config.paths.processed_dir / "condition_metadata.csv",
         "folds": root / config.paths.processed_dir / "combination_folds.csv",
         "predictions": root / config.paths.results_dir / "predictions" / "cpu_predictions.csv.gz",
+        "deltas": root / config.paths.results_dir / "predictions" / "pseudobulk_deltas.csv.gz",
         "metrics": root / config.paths.results_dir / "metrics" / "condition_metrics.csv",
         "summary": root / config.paths.results_dir / "metrics" / "model_summary.csv",
         "bootstrap": root / config.paths.results_dir / "bootstrap" / "paired_mae.csv",
@@ -347,14 +359,8 @@ def run_cpu_pipeline(
     }
     _write_frame(metadata, paths["metadata"])
     _write_frame(folds, paths["folds"])
-    paths["predictions"].parent.mkdir(parents=True, exist_ok=True)
-    predictions.to_csv(
-        paths["predictions"],
-        index=False,
-        compression={"method": "gzip", "mtime": 0},
-        lineterminator="\n",
-        float_format="%.10g",
-    )
+    _write_gzip_frame(predictions, paths["predictions"])
+    _write_gzip_frame(pseudobulk.deltas.reset_index(), paths["deltas"])
     _write_frame(metrics, paths["metrics"])
     _write_frame(summary, paths["summary"])
     _write_frame(bootstrap, paths["bootstrap"])
