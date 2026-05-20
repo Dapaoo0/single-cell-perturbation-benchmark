@@ -7,7 +7,7 @@ dataset:
   geo_accession: GSE133344
   bioproject: PRJNA551220
   provenance_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE133344
-  processed_data_url: null
+  processed_data_url: https://dataverse.harvard.edu/api/access/datafile/6154020
   condition_column: condition
   control_token: ctrl
   batch_column: null
@@ -26,9 +26,9 @@ bootstrap:
   iterations: 2000
 
 paths:
+  source_archive: data/raw/norman.zip
   raw_anndata: data/raw/perturb_processed.h5ad
   metadata_dir: results/metadata
   processed_dir: data/processed
   results_dir: results
   figures_dir: figures
-

@@ -1,4 +1,5 @@
 from pathlib import Path
+from zipfile import ZipFile
 
 import anndata as ad
 import numpy as np
@@ -7,7 +8,7 @@ import pytest
 from scipy import sparse
 
 from perturb_benchmark.data_validation import inspect_anndata
-from perturb_benchmark.provenance import sha256_file
+from perturb_benchmark.provenance import extract_zip_member, sha256_file
 
 
 def test_validation_reports_schema_control_and_sparse_fraction() -> None:
@@ -61,3 +62,16 @@ def test_sha256_file_matches_known_bytes(tmp_path: Path) -> None:
     assert sha256_file(source) == (
         "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
     )
+
+
+def test_extract_zip_member_selects_unique_h5ad_by_basename(tmp_path: Path) -> None:
+    archive = tmp_path / "norman.zip"
+    with ZipFile(archive, "w") as bundle:
+        bundle.writestr("norman/perturb_processed.h5ad", b"validated")
+        bundle.writestr("norman/metadata.txt", b"metadata")
+    destination = tmp_path / "data" / "perturb_processed.h5ad"
+
+    extracted = extract_zip_member(archive, "perturb_processed.h5ad", destination)
+
+    assert extracted == "norman/perturb_processed.h5ad"
+    assert destination.read_bytes() == b"validated"

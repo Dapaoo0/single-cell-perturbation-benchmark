@@ -3,9 +3,11 @@
 import hashlib
 import json
 import os
+import shutil
 import urllib.request
 from datetime import UTC, datetime
 from pathlib import Path
+from zipfile import BadZipFile, ZipFile
 
 
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
@@ -18,6 +20,36 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
         for chunk in iter(lambda: handle.read(chunk_size), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def extract_zip_member(archive: Path, basename: str, destination: Path) -> str:
+    """Extract one uniquely named member to an explicit destination."""
+
+    try:
+        with ZipFile(archive) as bundle:
+            matches = [
+                name
+                for name in bundle.namelist()
+                if not name.endswith("/") and Path(name).name == basename
+            ]
+            if len(matches) != 1:
+                raise ValueError(
+                    f"archive must contain exactly one {basename!r}; found {len(matches)}"
+                )
+            member = matches[0]
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            temporary = destination.with_suffix(destination.suffix + ".part")
+            try:
+                with bundle.open(member) as source, temporary.open("wb") as output:
+                    shutil.copyfileobj(source, output, length=1024 * 1024)
+                if temporary.stat().st_size == 0:
+                    raise ValueError(f"archive member {member!r} is empty")
+                os.replace(temporary, destination)
+            finally:
+                temporary.unlink(missing_ok=True)
+    except BadZipFile as error:
+        raise ValueError(f"invalid ZIP archive: {archive}") from error
+    return member
 
 
 def download_with_provenance(

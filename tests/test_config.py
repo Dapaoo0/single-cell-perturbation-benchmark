@@ -11,3 +11,4 @@ def test_load_config_freezes_primary_design() -> None:
     assert cfg.split.n_folds == 5
     assert cfg.bootstrap.iterations == 2000
     assert cfg.random_seed == 42
+    assert cfg.paths.source_archive == Path("data/raw/norman.zip")

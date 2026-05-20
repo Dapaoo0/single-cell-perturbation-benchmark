@@ -41,6 +41,7 @@ class BootstrapConfig(FrozenModel):
 
 
 class PathsConfig(FrozenModel):
+    source_archive: Path
     raw_anndata: Path
     metadata_dir: Path
     processed_dir: Path
@@ -66,4 +67,3 @@ def load_config(path: Path) -> ProjectConfig:
         raw = yaml.safe_load(handle)
     project = raw.pop("project")
     return ProjectConfig(**project, **raw)
-
