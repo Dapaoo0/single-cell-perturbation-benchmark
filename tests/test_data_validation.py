@@ -20,6 +20,9 @@ def test_validation_reports_schema_control_and_sparse_fraction() -> None:
         ),
         var=pd.DataFrame(index=["G1", "G2"]),
     )
+    adata.layers["counts"] = sparse.csr_matrix(
+        np.array([[0.0, 2.0], [4.0, 0.0]], dtype=np.float32)
+    )
 
     summary = inspect_anndata(adata, "condition", "ctrl")
 
@@ -30,6 +33,8 @@ def test_validation_reports_schema_control_and_sparse_fraction() -> None:
     assert summary.zero_fraction == 0.5
     assert summary.integer_like is True
     assert "gemgroup" in summary.candidate_batch_columns
+    assert summary.layer_evidence["counts"]["integer_like"] is True
+    assert summary.layer_evidence["counts"]["maximum"] == 4.0
 
 
 def test_validation_rejects_duplicate_gene_ids() -> None:

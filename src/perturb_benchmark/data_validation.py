@@ -17,6 +17,7 @@ class AnnDataSummary:
     obs_columns: tuple[str, ...]
     var_columns: tuple[str, ...]
     layer_names: tuple[str, ...]
+    layer_evidence: dict[str, dict[str, object]]
     has_raw: bool
     matrix_dtype: str
     matrix_kind: str
@@ -45,6 +46,31 @@ def _sample_values(matrix: Any, max_values: int = 1_000_000) -> np.ndarray:
     if sparse.issparse(matrix):
         return np.asarray(matrix[:rows].toarray(), dtype=float).ravel()
     return np.asarray(matrix[:rows], dtype=float).ravel()
+
+
+def _layer_evidence(matrix: Any) -> dict[str, object]:
+    values = _sample_values(matrix)
+    if values.size == 0 or not np.isfinite(values).all():
+        raise ValueError("expression layer contains no finite validation sample")
+    integer_like = bool(np.allclose(values, np.rint(values), atol=1e-6))
+    nonnegative = bool(np.min(values) >= 0)
+    total = matrix.shape[0] * matrix.shape[1]
+    if sparse.issparse(matrix):
+        kind = "sparse"
+        zero_fraction = 1.0 - (matrix.nnz / total)
+    else:
+        kind = "dense"
+        zero_fraction = float(np.count_nonzero(np.asarray(matrix) == 0) / total)
+    return {
+        "dtype": str(matrix.dtype),
+        "kind": kind,
+        "zero_fraction": float(zero_fraction),
+        "minimum": float(np.min(values)),
+        "maximum": float(np.max(values)),
+        "integer_like": integer_like,
+        "nonnegative": nonnegative,
+        "scale_evidence": "count-like" if integer_like and nonnegative else "processed-continuous",
+    }
 
 
 def inspect_anndata(
@@ -92,12 +118,16 @@ def inspect_anndata(
         if any(term in column.casefold() for term in batch_terms)
     )
     quantiles = tuple(float(value) for value in np.quantile(values, [0, 0.25, 0.5, 0.75, 1]))
+    layer_evidence = {
+        str(name): _layer_evidence(adata.layers[name]) for name in adata.layers.keys()
+    }
     return AnnDataSummary(
         n_cells=adata.n_obs,
         n_genes=adata.n_vars,
         obs_columns=tuple(map(str, adata.obs.columns)),
         var_columns=tuple(map(str, adata.var.columns)),
         layer_names=tuple(map(str, adata.layers.keys())),
+        layer_evidence=layer_evidence,
         has_raw=adata.raw is not None,
         matrix_dtype=str(adata.X.dtype),
         matrix_kind=matrix_kind,
@@ -114,4 +144,3 @@ def inspect_anndata(
         has_control=has_control,
         candidate_batch_columns=candidates,
     )
-

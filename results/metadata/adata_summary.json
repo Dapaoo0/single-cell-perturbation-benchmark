@@ -1,0 +1,50 @@
+{
+  "n_cells": 91205,
+  "n_genes": 5045,
+  "obs_columns": [
+    "condition",
+    "cell_type",
+    "dose_val",
+    "control",
+    "condition_name"
+  ],
+  "var_columns": [
+    "gene_name"
+  ],
+  "layer_names": [
+    "counts"
+  ],
+  "layer_evidence": {
+    "counts": {
+      "dtype": "float32",
+      "kind": "dense",
+      "zero_fraction": 0.9188978335379588,
+      "minimum": 0.0,
+      "maximum": 1190.0,
+      "integer_like": true,
+      "nonnegative": true,
+      "scale_evidence": "count-like"
+    }
+  },
+  "has_raw": false,
+  "matrix_dtype": "float32",
+  "matrix_kind": "sparse",
+  "zero_fraction": 0.9188978335379588,
+  "minimum": 0.0,
+  "maximum": 7.18216609954834,
+  "quantiles": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    7.18216609954834
+  ],
+  "integer_like": false,
+  "nonnegative": true,
+  "scale_evidence": "nonnegative-continuous; normalization state requires provenance",
+  "condition_column": "condition",
+  "n_conditions": 284,
+  "control_token": "ctrl",
+  "has_control": true,
+  "candidate_batch_columns": []
+}
