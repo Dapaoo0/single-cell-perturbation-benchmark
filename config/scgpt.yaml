@@ -1,0 +1,18 @@
+sources:
+  scgpt_repository: https://github.com/bowang-lab/scGPT.git
+  scgpt_commit: cebd6fae655b9c585a4807daa3ac31bb764f06b4
+  gears_repository: https://github.com/snap-stanford/GEARS.git
+  gears_commit: f374e43e197b295016d80395d7a54ddb81cc6769
+
+checkpoint:
+  # A real checkpoint file and its computed hashes are mandatory at execution time.
+  path: null
+  checkpoint_sha256: null
+  vocabulary_path: null
+  vocabulary_sha256: null
+
+execution:
+  requires_cuda: true
+  prediction_mode: full-perturbation
+  control_sampling_seed: 42
+  control_cells: 32

@@ -1,0 +1,18 @@
+{
+  "checkpoint_complete": false,
+  "cuda_available": false,
+  "cuda_version": null,
+  "gears": null,
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.15",
+  "reason": "CUDA, the pinned scGPT environment, and real checkpoint hashes are required.",
+  "scgpt": null,
+  "sources": {
+    "gears_commit": "f374e43e197b295016d80395d7a54ddb81cc6769",
+    "gears_repository": "https://github.com/snap-stanford/GEARS.git",
+    "scgpt_commit": "cebd6fae655b9c585a4807daa3ac31bb764f06b4",
+    "scgpt_repository": "https://github.com/bowang-lab/scGPT.git"
+  },
+  "status": "blocked_full_training",
+  "torch": null
+}
