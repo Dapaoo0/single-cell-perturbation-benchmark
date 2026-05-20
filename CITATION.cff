@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Single-Cell Perturbation Benchmark"
+type: software
+authors:
+  - name: Dapaoo0
+version: 0.1.0
+date-released: 2026-08-28
+repository-code: "https://github.com/Dapaoo0/single-cell-perturbation-benchmark"
+license: MIT
+

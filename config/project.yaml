@@ -1,0 +1,34 @@
+project:
+  name: single-cell-perturbation-benchmark
+  random_seed: 42
+
+dataset:
+  name: norman
+  geo_accession: GSE133344
+  bioproject: PRJNA551220
+  provenance_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE133344
+  processed_data_url: null
+  condition_column: condition
+  control_token: ctrl
+  batch_column: null
+
+quality:
+  min_cells_per_condition: 30
+
+gene_set:
+  strategy: scgpt_vocabulary_intersection
+
+split:
+  name: seen-components-unseen-combination
+  n_folds: 5
+
+bootstrap:
+  iterations: 2000
+
+paths:
+  raw_anndata: data/raw/perturb_processed.h5ad
+  metadata_dir: results/metadata
+  processed_dir: data/processed
+  results_dir: results
+  figures_dir: figures
+
