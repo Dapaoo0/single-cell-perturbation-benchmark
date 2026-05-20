@@ -22,6 +22,14 @@ folds, and evaluation contract.
 > because this machine has no CUDA runtime and no verified checkpoint was supplied. The repository
 > reports that boundary plainly—no synthetic predictions, no inflated claim.
 
+## What emerged
+
+On 131 held-out combinations, **Ridge reached 0.935 median Pearson correlation**, narrowly ahead of
+the additive baseline at 0.922. Ridge also reduced condition-level MAE relative to additivity by
+0.00174 (paired 95% bootstrap interval: 0.00125–0.00228) and recovered a median 75% of the top 20
+response genes. The result is useful precisely because it is restrained: component additivity is
+already a remarkably strong predictor, and the remaining gain from a fitted linear model is modest.
+
 ## Run the entire benchmark offline
 
 ```bash

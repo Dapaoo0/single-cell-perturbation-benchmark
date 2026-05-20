@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "bytes": 11070,
+      "path": "data/processed/condition_metadata.csv",
+      "sha256": "a9594d23c54dcc31e52d8d19bcfe1faa0cd42dc8acaf903ef16cbdf498e65d4d"
+    },
+    {
+      "bytes": 3487,
+      "path": "data/processed/combination_folds.csv",
+      "sha256": "321d8e2307c4f7eee85b58c92372adabcc231ccd167276b6813d12c40461ce0a"
+    },
+    {
+      "bytes": 56265335,
+      "path": "results/predictions/cpu_predictions.csv.gz",
+      "sha256": "72b9cf7baf5809db19e803bd058e5022c2d6143777544705202668674e6a5dd6"
+    },
+    {
+      "bytes": 5742711,
+      "path": "results/predictions/pseudobulk_deltas.csv.gz",
+      "sha256": "81df2f58027c7f3ebf6ccdbcd52f0df57dd2388cc9508d2569f8705135ae9816"
+    },
+    {
+      "bytes": 89985,
+      "path": "results/metrics/condition_metrics.csv",
+      "sha256": "b7160eecc154a5b138dad0790858f420287bb6c05d20354443636aaa29a2e040"
+    },
+    {
+      "bytes": 630,
+      "path": "results/metrics/model_summary.csv",
+      "sha256": "7397b1bb605fd9a73a0c235cb40f84af3685599e7bb647d90f0a58eac15b92bb"
+    },
+    {
+      "bytes": 487,
+      "path": "results/bootstrap/paired_mae.csv",
+      "sha256": "d69d26471a61e9fbc27540ded72d33db99b00d495a2a33597f03e25d94317783"
+    },
+    {
+      "bytes": 34084,
+      "path": "results/tables/response_gene_metrics.csv",
+      "sha256": "4573b98a2cbf4d78cd06ccd65272cb6070e9fc05ec63800e93f5c570c446f1b9"
+    },
+    {
+      "bytes": 68409,
+      "path": "results/tables/interaction_diagnostics.csv",
+      "sha256": "c9b999af17a1b56ee1073d36f614e7e6c0ae9c5b4264ab591a96421069c492b2"
+    },
+    {
+      "bytes": 90821,
+      "path": "results/metadata/crossfit_gene_panels.csv",
+      "sha256": "416d135bd3fb09da1235a238a9f5094ee9be4aa865ad529ad9056a6383935357"
+    }
+  ],
+  "dataset": "norman",
+  "models": [
+    "no_change",
+    "perturbed_mean",
+    "matching_mean",
+    "additive_sum",
+    "calibrated_additive",
+    "ridge"
+  ],
+  "n_genes": 5045,
+  "n_test_conditions": 131,
+  "seed": 42,
+  "status": "cpu_complete_scgpt_pending"
+}
