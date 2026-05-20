@@ -1,0 +1,28 @@
+project:
+  name: synthetic-perturbation-benchmark
+  random_seed: 42
+dataset:
+  name: synthetic
+  geo_accession: SYNTHETIC
+  bioproject: SYNTHETIC
+  provenance_url: https://example.invalid/synthetic
+  processed_data_url: null
+  condition_column: condition
+  control_token: ctrl
+  batch_column: null
+quality:
+  min_cells_per_condition: 2
+gene_set:
+  strategy: all_fixture_genes
+split:
+  name: seen-components-unseen-combination
+  n_folds: 2
+bootstrap:
+  iterations: 100
+paths:
+  source_archive: data/raw/synthetic.zip
+  raw_anndata: data/raw/synthetic.h5ad
+  metadata_dir: results/metadata
+  processed_dir: data/processed
+  results_dir: results
+  figures_dir: figures
