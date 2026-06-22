@@ -2,8 +2,10 @@
 
 ## Evidence
 
-The pinned GEARS AnnData contains 91,205 A549 cells and 5,045 genes. `adata.X`
-is a sparse nonnegative continuous matrix with values up to approximately 7.18.
+The pinned GEARS AnnData for the Norman K562 CRISPRa study contains 91,205 cells
+and 5,045 genes; the source cell-line identification is documented in
+[data provenance](DATA_PROVENANCE.md). `adata.X` is a sparse nonnegative
+continuous matrix with values up to approximately 7.18.
 It is already processed and must not be normalized again. The dense `counts`
 layer is nonnegative and integer-like, but the retained 5,045-gene panel does
 not contain the full original library; recomputing cell-level library-size

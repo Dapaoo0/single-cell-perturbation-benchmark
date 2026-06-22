@@ -3,10 +3,13 @@
 ## Original experiment
 
 - Study: Norman et al., *Exploring genetic interaction manifolds constructed from rich single-cell phenotypes* (2019)
-- Assay: pooled Perturb-seq with CRISPR activation/overexpression, including single and combinatorial perturbations
+- Cell line: K562 (human chronic myelogenous leukemia cell line)
+- Assay: pooled Perturb-seq with SunTag CRISPR activation (CRISPRa)/overexpression, including single and combinatorial perturbations
+- Publication: [Norman et al., Science (2019)](https://doi.org/10.1126/science.aax4438)
 - GEO: `GSE133344`
 - BioProject: `PRJNA551220`
 - GEO record: <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE133344>
+- Source sample: [BioSample SAMN12142227 / GEO GSM3906020](https://www.ncbi.nlm.nih.gov/biosample/SAMN12142227), which identifies the source as K562 cells
 
 ## Processed representation
 
@@ -31,7 +34,13 @@ GEARS is a convenience representation and did not generate the original experime
 - Original condition labels: `284`
 - Canonical conditions: `237` (`1` control, `105` singles, `131` doubles)
 - Minimum cells per canonical condition: `49`
-- Cell type: A549
+- `cell_type` column: present; annotation values are not recorded in the saved schema summary
 - Expression matrix: sparse, nonnegative continuous
 - `counts` layer: dense, nonnegative integer-like counts
 - Retained batch/replicate field: none
+
+K562 is the biological cell-line identity reported by the original study and source sample record.
+The saved `results/metadata/adata_summary.json` lists the processed object's `cell_type` column but
+does not enumerate its values. The source-based identification above is therefore separate from
+an audit of that processed annotation; this documentation correction does not modify the AnnData,
+expression values, or benchmark results.

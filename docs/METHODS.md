@@ -2,9 +2,11 @@
 
 ## Data and target
 
-The benchmark uses the GEARS processed representation of the Norman et al. A549 Perturb-seq
-experiment (GSE133344). Conditions are canonicalized as control, single-gene, or sorted double-gene
-CRISPRa labels. Conditions below the configured minimum cell count are removed. Expression is
+The benchmark uses the GEARS processed representation of the Norman et al. K562 Perturb-seq
+experiment (GSE133344), which used the SunTag CRISPR activation (CRISPRa) system. The original study
+and sample records are linked in [data provenance](DATA_PROVENANCE.md). Conditions are canonicalized
+as control, single-gene, or sorted double-gene CRISPRa labels. Conditions below the configured
+minimum cell count are removed. Expression is
 averaged within each condition and the matched control mean is subtracted. The released convenience
 artifact has no batch or replicate column, so the primary run uses one explicitly recorded global
 control rather than pretending that batches exist.

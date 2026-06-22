@@ -3,8 +3,9 @@
 ### Can a model predict a genetic combination it has never seen?
 
 This repository turns that question into a hard, reproducible benchmark: predict held-out
-**double-gene CRISPR activation responses** in the Norman Perturb-seq dataset while both component
-singles remain visible during training.
+**double-gene CRISPR activation responses** in the
+[Norman K562 Perturb-seq dataset](docs/DATA_PROVENANCE.md) while both component singles remain visible
+during training.
 
 The benchmark is deliberately difficult to fool. Test combinations never enter fitting, feature
 selection, calibration, or hyperparameter tuning. Every model receives the same genes, targets,
